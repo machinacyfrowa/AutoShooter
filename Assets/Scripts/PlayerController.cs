@@ -15,16 +15,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //pobierz stan kontrolera (poziom)
-        float x = Input.GetAxis("Horizontal");
-        //wylicz docelowy ruch poziomo (lewo/prawo po osi x) mno¿¹c wychylenie kontrolera przez "1" oraz czas od ostatniej klatki
-        Vector3 movement = Vector3.right * x * Time.deltaTime;
+        float x = Input.GetAxisRaw("Horizontal");
+        //wylicz docelowy ruch poziomo (lewo/prawo po osi x) mno¿¹c wychylenie kontrolera przez "1"
+        Vector3 movement = Vector3.right * x;
 
         //pobierz stan kontrolera (pion)
-        float y = Input.GetAxis("Vertical");
-        movement += Vector3.forward * y * Time.deltaTime;
+        float y = Input.GetAxisRaw("Vertical");
+        movement += Vector3.forward * y;
 
         //normalizuj ruch
         movement = movement.normalized;
+
+        //przelicz przez czas od ostatniej klatki
+        movement *= Time.deltaTime;
 
         //pomnó¿ ruch przez prêdkoœæ
         movement *= moveSpeed;
