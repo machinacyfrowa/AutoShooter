@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     Transform player;
     //offset kamery
     Vector3 offset;
-    //prêdkoœæ kamery
+    //prÄ™dkoÅ›Ä‡ kamery
     Vector3 cameraSpeed;
 
     // Start is called before the first frame update
@@ -23,9 +23,9 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //policz now¹ pozycjê kamery
+        //policz nowÄ… pozycjÄ™ kamery
         Vector3 targetPosition = player.position + offset;
-        //przesuñ kamerê w kierunku celu
+        //przesuÅ„ kamerÄ™ w kierunku celu
         //transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);
         
         //trzecia metoda - smoothdamp

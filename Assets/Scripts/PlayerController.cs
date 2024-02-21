@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     {
         //pobierz stan kontrolera (poziom)
         float x = Input.GetAxisRaw("Horizontal");
-        //wylicz docelowy ruch poziomo (lewo/prawo po osi x) mno¿¹c wychylenie kontrolera przez "1"
+        //wylicz docelowy ruch poziomo (lewo/prawo po osi x) mnoÅ¼Ä…c wychylenie kontrolera przez "1"
         Vector3 movement = Vector3.right * x;
 
         //pobierz stan kontrolera (pion)
@@ -29,10 +29,10 @@ public class PlayerController : MonoBehaviour
         //przelicz przez czas od ostatniej klatki
         movement *= Time.deltaTime;
 
-        //pomnó¿ ruch przez prêdkoœæ
+        //pomnÃ³Å¼ ruch przez prÄ™dkoÅ›Ä‡
         movement *= moveSpeed;
 
-        //na³ó¿ zmianê po³o¿enia na obiekt gracza
+        //naÅ‚Ã³Å¼ zmianÄ™ poÅ‚oÅ¼enia na obiekt gracza
         transform.position += movement;
         
     }
