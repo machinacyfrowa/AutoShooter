@@ -13,6 +13,9 @@ public class LevelManager : MonoBehaviour
     //czas od ostatniego respawnu
     float timeSinceSpawn;
 
+    //bezpieczna odleg³oœæ spawnu
+    float spawnDistance = 30;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +36,16 @@ public class LevelManager : MonoBehaviour
         if(timeSinceSpawn > 1)
         {
             //wygeneruj losow¹ pozycje
-            Vector3 randomPosition = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+            //Vector3 randomPosition = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+
+            //wygeneruj randomow¹ pozycjê na kole o promieniu 1
+            Vector2 random = Random.insideUnitCircle.normalized;
+
+            //skonwertuj x,y na x,z i zerow¹ wysokoœæ
+            Vector3 randomPosition = new Vector3(random.x, 0, random.y);
+
+            //zwielokrotnij odleg³osæ od gracza tak, ¿eby spawn nastêpowa³ poza kamer¹
+            randomPosition *= spawnDistance;
 
             //dodaj do niej pozycje gracza tak, aby nowe wspó³rzêdne by³y pozycj¹ wzglêdem gracza
             randomPosition += player.position;
