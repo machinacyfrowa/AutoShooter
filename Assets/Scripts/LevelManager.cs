@@ -10,6 +10,9 @@ public class LevelManager : MonoBehaviour
     //prefab przeciwnika
     public GameObject basherPrefab;
 
+    //czas miêdzy respawnem kolejnego bashera
+    public float spawnInterval = 1;
+
     //czas od ostatniego respawnu
     float timeSinceSpawn;
 
@@ -33,7 +36,7 @@ public class LevelManager : MonoBehaviour
         timeSinceSpawn += Time.deltaTime;
 
         //je¿eli d³u¿ej ni¿ jedna sekunda
-        if(timeSinceSpawn > 1)
+        if(timeSinceSpawn > spawnInterval)
         {
             //wygeneruj losow¹ pozycje
             //Vector3 randomPosition = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
@@ -50,12 +53,20 @@ public class LevelManager : MonoBehaviour
             //dodaj do niej pozycje gracza tak, aby nowe wspó³rzêdne by³y pozycj¹ wzglêdem gracza
             randomPosition += player.position;
 
-            //stworz nowego przeciwnika z istniej¹cego prefaba, na pozycji randomPosition z rotacj¹ domyœln¹
-            Instantiate(basherPrefab, randomPosition, Quaternion.identity);
+            //sprawdz czy danej miejsce jest wolne
+            if(!Physics.CheckSphere(new Vector3(randomPosition.x, 1, randomPosition.z), 0.5f))
+            {
+                //stworz nowego przeciwnika z istniej¹cego prefaba, na pozycji randomPosition z rotacj¹ domyœln¹
+                Instantiate(basherPrefab, randomPosition, Quaternion.identity);
 
-            //wyzeruj licznik
-            timeSinceSpawn = 0;
+                //wyzeruj licznik
+                timeSinceSpawn = 0;
+            }
+            //jeœli miejsce bêdzie zajête to program podejmie kolejn¹ próbê w nastêpnej klatce
+            
         }
+
+        //TODO: opracowaæ sposób na przyspieszanie spawnu w nieskoñczonoœæ wraz z d³ugoœcia trwania etapu
 
         
     }
