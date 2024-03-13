@@ -830,6 +830,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 10
   projectilePrefab: {fileID: 6099041393593402533, guid: b3e4dcec288065341b3dcdc46ff32a98, type: 3}
+  rateOfFire: 1
+  projectileForce: 20
 --- !u!1 &1616534943
 GameObject:
   m_ObjectHideFlags: 0
