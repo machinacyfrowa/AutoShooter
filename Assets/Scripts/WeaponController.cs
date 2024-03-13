@@ -10,22 +10,50 @@ public class WeaponController : MonoBehaviour
     //transform gracza
     Transform player;
 
+    //prefab pocisku
+    public GameObject projectilePrefab;
+
+    //spawn pocisku
+    Transform projectileSpawn;
+
+    //czestotliwosc strzalu (/sek)
+    public float rateOfFire = 1;
+    //czas od ostatniego wystrzalu
+    float timeSinceLastFire = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         // pozycja gracza
         player = GameObject.FindWithTag("Player").transform;
+
+        //znajdz w hierarchii obieku miejsce z ktorego staruje pocisk
+        projectileSpawn = transform.Find("ProjectileSpawn").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         Transform target = TagTargeter("Enemy");
-        if(target != transform) 
+        if (target != transform)
         {
             Debug.Log("Celuje do: " + target.gameObject.name);
             transform.LookAt(target.position + Vector3.up);
+
+            //wystrzel pocisk
+            //jeœli minê³o wiêcej od ostatniego strza³u ni¿ wskazuje na to prêdkoœæ strzelania
+            if (timeSinceLastFire > rateOfFire)
+            {
+                Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.identity);
+                //je¿eli strzelisz to wyzeruj czas 
+                timeSinceLastFire = 0;
+            }
+            else
+            {
+                timeSinceLastFire += Time.deltaTime;
+            }
         }
+
     }
     Transform TagTargeter(string tag)
     {
