@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Gracz trafiony");
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().GameOver();
         }
     }
 }

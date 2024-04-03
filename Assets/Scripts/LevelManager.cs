@@ -27,6 +27,15 @@ public class LevelManager : MonoBehaviour
     //licznik punktów na ekranie
     public GameObject pointsCounter;
 
+    //licznik czasu na ekranie
+    public GameObject timeCounter;
+
+    //ekran koñca gry
+    public GameObject gameOverScreen;
+
+    //czas do koñca poziomu
+    public float levelTime = 60f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,7 +85,18 @@ public class LevelManager : MonoBehaviour
 
         //TODO: opracowaæ sposób na przyspieszanie spawnu w nieskoñczonoœæ wraz z d³ugoœcia trwania etapu
 
-        UpdateUI();
+        //dodaj do czasu poziomu czas od ostatniej klatki
+        
+        if(levelTime < 0)
+        {
+            GameOver();
+        } 
+        else
+        {
+            levelTime -= Time.deltaTime;
+            UpdateUI();
+        }
+        
     }
     public void AddPoints(int amount)
     {
@@ -86,5 +106,27 @@ public class LevelManager : MonoBehaviour
     private void UpdateUI()
     {
         pointsCounter.GetComponent<TextMeshProUGUI>().text = "Punkty: " + points.ToString();
+        timeCounter.GetComponent<TextMeshProUGUI>().text = Mathf.Floor(levelTime).ToString();
+    }
+    //ta funkcja uruchamia siê jeœli gracz zginie lub jeœli czas siê skoñczy
+    public void GameOver()
+    {
+        //wy³¹cz sterowanie gracza
+        player.GetComponent<PlayerController>().enabled = false;
+        player.transform.Find("MainTurret").GetComponent<WeaponController>().enabled = false;
+
+        //wylacz bashery
+        GameObject[] enemyList = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject basher in enemyList)
+        {
+            basher.GetComponent<BasherController>().enabled = false;
+        }
+
+        //wyswietl poprawnie wynik na ekranie koñcowym
+        gameOverScreen.transform.Find("FinalScoreText").GetComponent<TextMeshProUGUI>().text = "Wynik koñcowy: " + points.ToString();
+
+        //poka¿ ekran koñca gry
+        gameOverScreen.SetActive(true);
+        
     }
 }
