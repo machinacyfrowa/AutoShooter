@@ -8,11 +8,14 @@ public class BasherController : MonoBehaviour
     GameObject player;
     //prędkość podążania za graczem
     public float walkSpeed = 1f;
+    //odwolanie do levelManager
+    GameObject levelManager;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        levelManager = GameObject.Find("LevelManager");
     }
 
     // Update is called once per frame
@@ -32,12 +35,15 @@ public class BasherController : MonoBehaviour
         //tylko jeśli trafił nas gracz
         if(projectile.CompareTag("PlayerProjectile"))
         {
+            //dolicz punkty
+            levelManager.GetComponent<LevelManager>().AddPoints(1);
+            
             //zniknij pocisk
-
             Destroy(projectile);
 
             //zniknij przeciwnika
             Destroy(transform.gameObject);
+
         }
        /* if (collision.gameObject.CompareTag("Player"))
         {
