@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+
+
     //zasiêg broni
     public float range = 10f;
 
@@ -33,6 +35,7 @@ public class WeaponController : MonoBehaviour
 
         //znajdz w hierarchii obieku miejsce z ktorego staruje pocisk
         projectileSpawn = transform.Find("ProjectileSpawn").transform;
+
     }
 
     // Update is called once per frame
@@ -42,6 +45,7 @@ public class WeaponController : MonoBehaviour
         if (target != transform)
         {
             //Debug.Log("Celuje do: " + target.gameObject.name);
+            //obróc wie¿ê
             transform.LookAt(target.position + Vector3.up);
 
             //wystrzel pocisk
