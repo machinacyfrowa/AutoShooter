@@ -72,6 +72,7 @@ public class WeaponController : MonoBehaviour
             }
          
         }
+        //zwiêksz czas od ostatniego strza³u
         timeSinceLastFire += Time.deltaTime;
 
     }
